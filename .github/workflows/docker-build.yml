@@ -1,0 +1,20 @@
+name: Docker Image CI
+
+on: 
+  push:
+    branches:
+    - main
+
+jobs: 
+  build: 
+    runs-on: ubuntu-latest
+    steps:
+        - uses: actions/checkout@v2
+
+        - name: Build the tagged Docker image
+          run: | 
+            docker build . --file Dockerfile --tag ghcr.io/jon-andre/github-packages:latest
+        
+        - name: Push the tagged Docker image
+          run: |
+            docker push ghcr.io/jon-andre/github-packages:latest
